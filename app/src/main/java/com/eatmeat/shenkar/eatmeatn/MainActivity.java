@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button startBtn;
+    private ImageButton startBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //setting the orientation to landscape
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        startBtn = findViewById(R.id.button);
+        startBtn = findViewById(R.id.start_btn);
         startBtn.setOnClickListener(this);
     }
 

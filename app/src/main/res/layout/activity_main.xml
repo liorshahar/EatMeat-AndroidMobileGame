@@ -4,14 +4,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/cover"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button"
+    <ImageButton
+        android:id="@+id/start_btn"
+        android:layout_width="139dp"
+        android:layout_height="124dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="222dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="220dp"
+        android:background="@drawable/start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.636"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="254dp" />
+        android:layout_marginBottom="275dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginLeft="112dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="36dp"
+        android:text="EAT"
+        android:textColor="#54331d"
+        android:textSize="65sp"
+        app:fontFamily="@font/alfa_slab_one"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/gifTextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="273dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:text="MEAT"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="65sp"
+        app:fontFamily="@font/alfa_slab_one"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <pl.droidsonroids.gif.GifTextView
+        android:id="@+id/gifTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/fatguy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </android.support.constraint.ConstraintLayout>
