@@ -31,4 +31,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         startActivity(new Intent(this , GameActivity.class));
     }
+
+
+    public void onInfoClicked(View view) {
+        startActivity(new Intent(MainActivity.this, InformationActivity.class));
+    }
+
+
+    public void onSettingsClicked(View view) {
+        startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+    }
 }
