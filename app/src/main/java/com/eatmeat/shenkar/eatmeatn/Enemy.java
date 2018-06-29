@@ -3,13 +3,9 @@ package com.eatmeat.shenkar.eatmeatn;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Rect;
 
 import java.util.Random;
 
-/**
- * Created by Belal on 6/15/2016.
- */
 public class Enemy {
 
     //bitmap for the enemy
@@ -32,6 +28,7 @@ public class Enemy {
 
 
     public Enemy(Context context, int screenX, int screenY) {
+
         //getting bitmap from drawable resource
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.hamburger);
 
@@ -41,11 +38,7 @@ public class Enemy {
         minX = 0;
         minY = 0;
 
-        //generating a random coordinate to add enemy
-        Random generator = new Random();
-        speed = generator.nextInt(6) + 10;
-        x = screenX;
-        y = generator.nextInt(maxY) - bitmap.getHeight();
+        update(10);
 
     }
 
@@ -56,10 +49,9 @@ public class Enemy {
         //if the enemy reaches the left edge
         if (x < minX - bitmap.getWidth()) {
             //adding the enemy again to the right edge
-            Random generator = new Random();
-            speed = generator.nextInt(10) + 10;
+            speed = 10;
             x = maxX;
-            y = generator.nextInt(maxY) - bitmap.getHeight();
+            y = maxY - 10 - bitmap.getHeight();
         }
     }
 
