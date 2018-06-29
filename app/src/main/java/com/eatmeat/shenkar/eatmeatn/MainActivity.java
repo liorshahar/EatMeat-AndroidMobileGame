@@ -1,5 +1,8 @@
 package com.eatmeat.shenkar.eatmeatn;
 
+import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -11,6 +14,10 @@ import android.widget.ImageButton;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageButton startBtn;
+    private ImageButton soundBtn;
+    public boolean isSoundMute;
+    public MediaPlayer mp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +29,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         startBtn = findViewById(R.id.start_btn);
         startBtn.setOnClickListener(this);
+
+        soundBtn = findViewById(R.id.sound_btn);
+
+        mp = MediaPlayer.create(R.raw.sound_file_1);
+        mp.start();
     }
 
     @Override
     public void onClick(View v) {
         startActivity(new Intent(this , GameActivity.class));
     }
+
+
+    public void onInfoClicked(View view) {
+        startActivity(new Intent(MainActivity.this, InformationActivity.class));
+    }
+
+
+    public void onSoundClicked(View view) {
+        //TODO: adding audio manager for sounds mute and unmute
+
+        if (isSoundMute == true) {
+            mp.setVolume(1, 1);
+            soundBtn.setImageResource(R.drawable.unmute);
+            isSoundMute = false;
+        } else if (isSoundMute == false) {
+            mp.setVolume(0, 0);
+            soundBtn.setImageResource(R.drawable.mute);
+            isSoundMute = true;
+        }
+
+    }
+
+
 }

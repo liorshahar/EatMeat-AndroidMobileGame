@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -23,6 +24,12 @@ public class GameView extends SurfaceView implements Runnable {
 
     //Adding 3 enemies you may increase the size
     private int enemyCount = 3;
+
+    //the mediaplayer objects to configure the background music
+    //static MediaPlayer gameOnsound;
+    //final MediaPlayer killedEnemysound;
+    //final MediaPlayer gameOversound;
+
 /*
     private ArrayList<Star> stars = new
             ArrayList<Star>();*/
@@ -45,6 +52,17 @@ public class GameView extends SurfaceView implements Runnable {
         for(int i=0; i<enemyCount; i++){
             enemies[i] = new Enemy(context, screenX, screenY);
         }
+
+        //initializing the media players for the game sounds
+        /*
+        gameOnsound = MediaPlayer.create(context,R.raw.gameon);
+        killedEnemysound = MediaPlayer.create(context,R.raw.killedenemy);
+        gameOversound = MediaPlayer.create(context,R.raw.gameover);
+
+        //starting the game music as the game starts
+        gameOnsound.start();
+        */
+
     }
 
     @Override
