@@ -18,6 +18,7 @@ public class Player {
 
     //boolean variable to track the ship is boosting or not
     private boolean boosting;
+    private boolean isTouched = false;
 
     //Gravity Value to add gravity effect on the ship
     private final int GRAVITY = -10;
@@ -30,8 +31,9 @@ public class Player {
     private final int MIN_SPEED = 1;
     private final int MAX_SPEED = 20;
 
+
     public Player(Context context , int screenX  , int screenY){
-        this.x = 0;
+        this.x = 100;
         this.y = 0;
 
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.oneman);
@@ -63,10 +65,19 @@ public class Player {
         //if the ship is boosting
         if (boosting) {
             //speeding up the ship
-            speed += 6;
+            speed += 10;
+            if(y == maxY)
+                isTouched = true;
+            if(isTouched && y > maxY - 300) {
+                y -= 30;
+            } else {
+                isTouched = false;
+                y += 20;
+            }
         } else {
             //slowing down if not boosting
             speed -= 5;
+            y += 10;
         }
         //controlling the top speed
         if (speed > MAX_SPEED) {
@@ -79,7 +90,6 @@ public class Player {
         }
 
         //moving the ship down
-        y -= speed + GRAVITY;
 
         //but controlling it also so that it won't go off the screen
         if (y < minY) {
