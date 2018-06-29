@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -21,9 +22,9 @@ public class GameView extends SurfaceView implements Runnable {
 
     //Adding enemies object array
     private Enemy[] enemies;
+    private int enemyCount = 1;
 
-    //Adding 3 enemies you may increase the size
-    private int enemyCount = 3;
+    private Boom boom;
 
     //the mediaplayer objects to configure the background music
     //static MediaPlayer gameOnsound;
@@ -41,17 +42,13 @@ public class GameView extends SurfaceView implements Runnable {
         surfaceHolder = getHolder();
         paint = new Paint();
 
-       /* int starNums = 100;
-        for (int i = 0; i < starNums; i++) {
-            Star s = new Star(screenX, screenY);
-            stars.add(s);
-        }*/
-
         //initializing enemy object array
         enemies = new Enemy[enemyCount];
         for(int i=0; i<enemyCount; i++){
             enemies[i] = new Enemy(context, screenX, screenY);
         }
+
+        boom = new Boom(context);
 
         //initializing the media players for the game sounds
         /*
@@ -76,13 +73,21 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void update() {
         player.update();
-     /*   for (Star s : stars) {
-            s.update(player.getSpeed());
-        }*/
+
+        boom.setX(-350);
+        boom.setY(-350);
 
         //updating the enemy coordinate with respect to player speed
         for(int i=0; i<enemyCount; i++){
             enemies[i].update(player.getSpeed());
+
+            //if crash
+            if(Rect.intersects(player.getDetectCrash(), enemies[i].getDetectCrash())) {
+                boom.setX(enemies[i].getX());
+                boom.setY(enemies[i].getY());
+
+                enemies[i].setX(-200);
+            }
         }
     }
 
@@ -92,11 +97,6 @@ public class GameView extends SurfaceView implements Runnable {
             canvas.drawColor(Color.BLACK);
 
             paint.setColor(Color.WHITE);
-
-          /*  for (Star s : stars) {
-                paint.setStrokeWidth(s.getStarWidth());
-                canvas.drawPoint(s.getX(), s.getY(), paint);
-            }*/
 
             canvas.drawBitmap(
                     player.getBitmap(),
@@ -113,6 +113,13 @@ public class GameView extends SurfaceView implements Runnable {
                         paint
                 );
             }
+
+            canvas.drawBitmap(
+                    boom.getBitmap(),
+                    boom.getX(),
+                    boom.getY(),
+                    paint
+            );
 
             surfaceHolder.unlockCanvasAndPost(canvas);
 

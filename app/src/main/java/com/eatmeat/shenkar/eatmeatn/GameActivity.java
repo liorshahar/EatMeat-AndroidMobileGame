@@ -7,7 +7,6 @@ import android.view.Display;
 
 public class GameActivity extends AppCompatActivity {
 
-    // Declaring gameview
     private GameView gameView;
 
     @Override

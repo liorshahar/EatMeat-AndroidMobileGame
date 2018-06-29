@@ -3,13 +3,12 @@ package com.eatmeat.shenkar.eatmeatn;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 
 import java.util.Random;
 
 public class Enemy {
 
-    //bitmap for the enemy
-    //we have already pasted the bitmap in the drawable folder
     private Bitmap bitmap;
 
     //x and y coordinates
@@ -26,11 +25,11 @@ public class Enemy {
     private int maxY;
     private int minY;
 
+    private Rect detectCrash;
 
     public Enemy(Context context, int screenX, int screenY) {
 
-        //getting bitmap from drawable resource
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.hamburger);
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.brocoli);
 
         //initializing min and max coordinates
         maxX = screenX;
@@ -38,7 +37,14 @@ public class Enemy {
         minX = 0;
         minY = 0;
 
-        update(10);
+        Random generator = new Random();
+        speed = generator.nextInt(6) + 10;
+        x = screenX;
+        y = generator.nextInt(maxY) - bitmap.getHeight();
+
+        //initializing rect object
+        detectCrash = new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
+
 
     }
 
@@ -53,6 +59,13 @@ public class Enemy {
             x = maxX;
             y = maxY - 10 - bitmap.getHeight();
         }
+
+        //Adding the top, left, bottom and right to the rect object
+        detectCrash.left = x;
+        detectCrash.top = y;
+        detectCrash.right = x + bitmap.getWidth();
+        detectCrash.bottom = y + bitmap.getHeight();
+
     }
 
 
@@ -72,6 +85,16 @@ public class Enemy {
 
     public int getSpeed() {
         return speed;
+    }
+
+    public Rect getDetectCrash() {
+        return detectCrash;
+    }
+
+
+    //setters
+    public void setX(int x) {
+        this.x = x;
     }
 
 }

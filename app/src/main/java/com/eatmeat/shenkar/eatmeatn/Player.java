@@ -3,6 +3,7 @@ package com.eatmeat.shenkar.eatmeatn;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 
 public class Player {
 
@@ -19,33 +20,31 @@ public class Player {
     //boolean variable to track the ship is boosting or not
     private boolean boosting;
     private boolean isTouched = false;
-
     //Gravity Value to add gravity effect on the ship
     private final int GRAVITY = -10;
-
     //Controlling Y coordinate so that ship won't go outside the screen
     private int maxY;
     private int minY;
-
     //Limit the bounds of the ship's speed
     private final int MIN_SPEED = 1;
     private final int MAX_SPEED = 20;
 
+    private Rect detectCrash;
 
     public Player(Context context , int screenX  , int screenY){
-        this.x = 100;
+        this.x = 115;
         this.y = 0;
 
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.oneman);
 
         //calculating maxY
         maxY = screenY - bitmap.getHeight();
-
         //top edge's y point is 0 so min y will always be zero
         minY = 0;
-
         //setting the boosting value to false initially
         boosting = false;
+
+        detectCrash = new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
 
     }
 
@@ -65,7 +64,7 @@ public class Player {
         //if the ship is boosting
         if (boosting) {
             //speeding up the ship
-            speed += 10;
+            speed += 3;
             if(y == maxY)
                 isTouched = true;
             if(isTouched && y > maxY - 300) {
@@ -76,7 +75,7 @@ public class Player {
             }
         } else {
             //slowing down if not boosting
-            speed -= 5;
+            speed -= 3;
             y += 10;
         }
         //controlling the top speed
@@ -98,12 +97,15 @@ public class Player {
         if (y > maxY) {
             y = maxY;
         }
+
+        detectCrash.left = x;
+        detectCrash.top = y;
+        detectCrash.right = x + bitmap.getWidth();
+        detectCrash.bottom = y + bitmap.getHeight();
+
     }
 
-    /*
-     * These are getters you can generate it autmaticallyl
-     * right click on editor -> generate -> getters
-     * */
+    //getters
     public Bitmap getBitmap() {
         return bitmap;
     }
@@ -118,5 +120,9 @@ public class Player {
 
     public int getSpeed() {
         return speed;
+    }
+
+    public Rect getDetectCrash() {
+        return detectCrash;
     }
 }

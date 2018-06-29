@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         soundBtn = findViewById(R.id.sound_btn);
 
-        mp = MediaPlayer.create(R.raw.sound_file_1);
-        mp.start();
+        //mp = MediaPlayer.create(R.raw.sound_file_1);
+        //mp.start();
     }
 
     @Override
