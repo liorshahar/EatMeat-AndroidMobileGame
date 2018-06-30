@@ -20,20 +20,24 @@ public class GameView extends SurfaceView implements Runnable {
     private Canvas canvas;
     private SurfaceHolder surfaceHolder;
 
-    //Adding enemies object array
-    private Enemy[] enemies;
+    private Enemy enemies;
     private int enemyCount = 1;
+    private Friend friend;
 
     private Boom boom;
+
+    int screenX;
+    int countMisses;
+
+    //flag that indicate the an enemy entered the game screen
+    boolean flag;
+
+    private boolean isGameOver;
 
     //the mediaplayer objects to configure the background music
     //static MediaPlayer gameOnsound;
     //final MediaPlayer killedEnemysound;
     //final MediaPlayer gameOversound;
-
-/*
-    private ArrayList<Star> stars = new
-            ArrayList<Star>();*/
 
     public GameView(Context context, int screenX, int screenY) {
         super(context);
@@ -43,12 +47,17 @@ public class GameView extends SurfaceView implements Runnable {
         paint = new Paint();
 
         //initializing enemy object array
-        enemies = new Enemy[enemyCount];
-        for(int i=0; i<enemyCount; i++){
-            enemies[i] = new Enemy(context, screenX, screenY);
-        }
+        //enemies = new Enemy[enemyCount];
+
+        enemies = new Enemy(context, screenX, screenY);
 
         boom = new Boom(context);
+
+        friend = new Friend(context, screenX, screenY);
+
+        this.screenX = screenX;
+        countMisses = 0;
+        isGameOver = false;
 
         //initializing the media players for the game sounds
         /*
@@ -74,22 +83,50 @@ public class GameView extends SurfaceView implements Runnable {
     private void update() {
         player.update();
 
+        //setting the boom bitmap outside screen
         boom.setX(-350);
         boom.setY(-350);
 
+        if(enemies.getX()==screenX) {
+            flag = true;
+        }
+
         //updating the enemy coordinate with respect to player speed
-        for(int i=0; i<enemyCount; i++){
-            enemies[i].update(player.getSpeed());
+        enemies.update(player.getSpeed());
 
-            //if crash
-            if(Rect.intersects(player.getDetectCrash(), enemies[i].getDetectCrash())) {
-                boom.setX(enemies[i].getX());
-                boom.setY(enemies[i].getY());
+        //if crash
+        if (Rect.intersects(player.getDetectCrash(), enemies.getDetectCrash())) {
+            boom.setX(enemies.getX());
+            boom.setY(enemies.getY());
+            //TODO: play sound of crash
+            enemies.setX(-200);
+        }
+        else {
+            if(flag) {
+                if(player.getDetectCrash().exactCenterX() >= enemies.getDetectCrash().exactCenterX()) {
+                    countMisses++;
+                    flag = false;
 
-                enemies[i].setX(-200);
+                    if(countMisses == 3) {
+                        playing = false;
+                        isGameOver = false;
+                    }
+                }
             }
         }
+
+        friend.update(player.getSpeed());
+
+        if(Rect.intersects(player.getDetectCrash(),friend.getDetectCrash())) {
+            boom.setX(friend.getX());
+            boom.setY(friend.getY());
+
+            playing = false;
+            isGameOver = true;
+
+        }
     }
+
 
     private void draw() {
         if (surfaceHolder.getSurface().isValid()) {
@@ -97,22 +134,22 @@ public class GameView extends SurfaceView implements Runnable {
             canvas.drawColor(Color.BLACK);
 
             paint.setColor(Color.WHITE);
+            paint.setTextSize(20);
 
             canvas.drawBitmap(
                     player.getBitmap(),
                     player.getX(),
                     player.getY(),
-                    paint);
+                    paint
+            );
 
-            //drawing the enemies
-            for (int i = 0; i < enemyCount; i++) {
-                canvas.drawBitmap(
-                        enemies[i].getBitmap(),
-                        enemies[i].getX(),
-                        enemies[i].getY(),
-                        paint
-                );
-            }
+            canvas.drawBitmap(
+                    enemies.getBitmap(),
+                    enemies.getX(),
+                    enemies.getY(),
+                    paint
+            );
+
 
             canvas.drawBitmap(
                     boom.getBitmap(),
@@ -121,8 +158,23 @@ public class GameView extends SurfaceView implements Runnable {
                     paint
             );
 
-            surfaceHolder.unlockCanvasAndPost(canvas);
+            canvas.drawBitmap(
+                    friend.getBitmap(),
+                    friend.getX(),
+                    friend.getY(),
+                    paint
+            );
 
+            //draw game Over when the game is over
+            if(isGameOver){
+                paint.setTextSize(150);
+                paint.setTextAlign(Paint.Align.CENTER);
+
+                int yPos=(int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
+                canvas.drawText("Game Over",canvas.getWidth()/2,yPos,paint);
+            }
+
+            surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
 
