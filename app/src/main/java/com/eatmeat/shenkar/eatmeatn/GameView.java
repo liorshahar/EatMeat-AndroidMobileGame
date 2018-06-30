@@ -1,6 +1,7 @@
 package com.eatmeat.shenkar.eatmeatn;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -34,6 +35,12 @@ public class GameView extends SurfaceView implements Runnable {
 
     private boolean isGameOver;
 
+    int score;
+    int highScore[] = new int[4];
+
+    //Shared Prefernces to store the High Scores
+    SharedPreferences sharedPreferences;
+
     //the mediaplayer objects to configure the background music
     //static MediaPlayer gameOnsound;
     //final MediaPlayer killedEnemysound;
@@ -46,18 +53,23 @@ public class GameView extends SurfaceView implements Runnable {
         surfaceHolder = getHolder();
         paint = new Paint();
 
-        //initializing enemy object array
-        //enemies = new Enemy[enemyCount];
-
         enemies = new Enemy(context, screenX, screenY);
-
         boom = new Boom(context);
-
         friend = new Friend(context, screenX, screenY);
 
         this.screenX = screenX;
         countMisses = 0;
         isGameOver = false;
+
+        score = 0;
+
+        sharedPreferences = context.getSharedPreferences("SHAR_PREF_NAME",Context.MODE_PRIVATE);
+
+        //initializing the array high scores with the previous values
+        highScore[0] = sharedPreferences.getInt("score1",0);
+        highScore[1] = sharedPreferences.getInt("score2",0);
+        highScore[2] = sharedPreferences.getInt("score3",0);
+        highScore[3] = sharedPreferences.getInt("score4",0);
 
         //initializing the media players for the game sounds
         /*
@@ -81,6 +93,8 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
+        score++;
+
         player.update();
 
         //setting the boom bitmap outside screen
@@ -109,7 +123,25 @@ public class GameView extends SurfaceView implements Runnable {
 
                     if(countMisses == 3) {
                         playing = false;
-                        isGameOver = false;
+                        isGameOver = true;
+
+                        //Assigning the scores to the highscore integer array
+                        for(int i=0; i<4 ;i++){
+                            if(highScore[i]<score){
+
+                                final int finalI = i;
+                                highScore[i] = score;
+                                break;
+                            }
+                        }
+
+                        //storing the scores through shared Preferences
+                        SharedPreferences.Editor e = sharedPreferences.edit();
+                        for(int i=0;i<4;i++){
+                            int j = i+1;
+                            e.putInt("score"+j,highScore[i]);
+                        }
+                        e.apply();
                     }
                 }
             }
@@ -124,6 +156,23 @@ public class GameView extends SurfaceView implements Runnable {
             playing = false;
             isGameOver = true;
 
+            //Assigning the scores to the highscore integer array
+            for(int i=0;i<4;i++){
+                if(highScore[i]<score){
+
+                    final int finalI = i;
+                    highScore[i] = score;
+                    break;
+                }
+            }
+
+            //storing the scores through shared Preferences
+            SharedPreferences.Editor e = sharedPreferences.edit();
+            for(int i=0;i<4;i++){
+                int j = i+1;
+                e.putInt("score"+j,highScore[i]);
+            }
+            e.apply();
         }
     }
 
@@ -135,6 +184,9 @@ public class GameView extends SurfaceView implements Runnable {
 
             paint.setColor(Color.WHITE);
             paint.setTextSize(20);
+
+            paint.setTextSize(40);
+            canvas.drawText("Score:"+score,100,50,paint);
 
             canvas.drawBitmap(
                     player.getBitmap(),

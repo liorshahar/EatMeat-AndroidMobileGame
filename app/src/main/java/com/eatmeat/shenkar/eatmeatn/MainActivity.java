@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageButton startBtn;
+    private ImageButton scoreBtn;
     private ImageButton soundBtn;
     public boolean isSoundMute;
     public MediaPlayer mp;
@@ -30,6 +31,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startBtn = findViewById(R.id.start_btn);
         startBtn.setOnClickListener(this);
 
+        scoreBtn = findViewById(R.id.score_btn);
+        scoreBtn.setOnClickListener(this);
+
         soundBtn = findViewById(R.id.sound_btn);
 
         //mp = MediaPlayer.create(R.raw.sound_file_1);
@@ -38,7 +42,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        startActivity(new Intent(this , GameActivity.class));
+
+        if(v == startBtn) {
+            startActivity(new Intent(this , GameActivity.class));
+        }
+
+        if (v == scoreBtn) {
+            startActivity(new Intent(MainActivity.this, HighScore.class));
+        }
     }
 
 
