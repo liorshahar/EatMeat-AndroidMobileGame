@@ -21,7 +21,7 @@ public class Player {
     private boolean boosting;
     private boolean isTouched = false;
     //Gravity Value to add gravity effect on the ship
-    private final int GRAVITY = -10;
+    private final int GRAVITY = -20;
     //Controlling Y coordinate so that ship won't go outside the screen
     private int maxY;
     private int minY;
@@ -32,12 +32,12 @@ public class Player {
     private Rect detectCrash;
 
     public Player(Context context , int screenX  , int screenY){
-        this.x = 115;
+        this.x = 300;
         this.y = 0;
 
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.oneman);
 
-        //calculating maxY
+        //calculating maxY - player touch the ground
         maxY = screenY - bitmap.getHeight();
         //top edge's y point is 0 so min y will always be zero
         minY = 0;
@@ -64,10 +64,11 @@ public class Player {
         //if the ship is boosting
         if (boosting) {
             //speeding up the ship
-            speed += 3;
+            speed += 2;
             if(y == maxY)
                 isTouched = true;
-            if(isTouched && y > maxY - 300) {
+            //how high the player jumps
+            if(isTouched && y > maxY - 500) {
                 y -= 30;
             } else {
                 isTouched = false;
@@ -89,7 +90,6 @@ public class Player {
         }
 
         //moving the ship down
-
         //but controlling it also so that it won't go off the screen
         if (y < minY) {
             y = minY;

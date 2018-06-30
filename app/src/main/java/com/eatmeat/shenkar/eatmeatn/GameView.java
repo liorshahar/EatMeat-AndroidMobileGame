@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -22,8 +21,7 @@ public class GameView extends SurfaceView implements Runnable {
     private SurfaceHolder surfaceHolder;
 
     private Enemy enemies;
-    private int enemyCount = 1;
-    private Friend friend;
+    private Hamburger hamburger;
 
     private Boom boom;
 
@@ -55,7 +53,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         enemies = new Enemy(context, screenX, screenY);
         boom = new Boom(context);
-        friend = new Friend(context, screenX, screenY);
+        hamburger = new Hamburger(context, screenX, screenY);
 
         this.screenX = screenX;
         countMisses = 0;
@@ -108,6 +106,14 @@ public class GameView extends SurfaceView implements Runnable {
         //updating the enemy coordinate with respect to player speed
         enemies.update(player.getSpeed());
 
+        //if collect burger
+        if (Rect.intersects(player.getDetectCrash(), hamburger.getDetectCrash())) {
+            //boom.setX(enemies.getX());
+            //boom.setY(enemies.getY());
+            //TODO: play sound of money
+            hamburger.setX(-200);
+        }
+
         //if crash
         if (Rect.intersects(player.getDetectCrash(), enemies.getDetectCrash())) {
             boom.setX(enemies.getX());
@@ -147,15 +153,18 @@ public class GameView extends SurfaceView implements Runnable {
             }
         }
 
-        friend.update(player.getSpeed());
+        hamburger.update(player.getSpeed());
 
-        if(Rect.intersects(player.getDetectCrash(),friend.getDetectCrash())) {
-            boom.setX(friend.getX());
-            boom.setY(friend.getY());
+        if(Rect.intersects(player.getDetectCrash(), hamburger.getDetectCrash())) {
+            //boom.setX(hamburger.getX());
+            //boom.setY(hamburger.getY());
 
-            playing = false;
-            isGameOver = true;
+            score += 100;
 
+            //playing = false;
+            //isGameOver = true;
+
+            /*
             //Assigning the scores to the highscore integer array
             for(int i=0;i<4;i++){
                 if(highScore[i]<score){
@@ -172,7 +181,7 @@ public class GameView extends SurfaceView implements Runnable {
                 int j = i+1;
                 e.putInt("score"+j,highScore[i]);
             }
-            e.apply();
+            e.apply();*/
         }
     }
 
@@ -211,15 +220,15 @@ public class GameView extends SurfaceView implements Runnable {
             );
 
             canvas.drawBitmap(
-                    friend.getBitmap(),
-                    friend.getX(),
-                    friend.getY(),
+                    hamburger.getBitmap(),
+                    hamburger.getX(),
+                    hamburger.getY(),
                     paint
             );
 
             //draw game Over when the game is over
             if(isGameOver){
-                paint.setTextSize(150);
+                paint.setTextSize(180);
                 paint.setTextAlign(Paint.Align.CENTER);
 
                 int yPos=(int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
@@ -256,10 +265,10 @@ public class GameView extends SurfaceView implements Runnable {
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_UP: //stop jump
                 player.stopBoosting();
                 break;
-            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_DOWN: //start jump
                 player.setBoosting();
                 break;
         }

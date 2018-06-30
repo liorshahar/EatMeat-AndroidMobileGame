@@ -7,7 +7,7 @@ import android.graphics.Rect;
 
 import java.util.Random;
 
-public class Friend {
+public class Hamburger {
 
         private Bitmap bitmap;
         private int x;
@@ -23,7 +23,7 @@ public class Friend {
         private Rect detectCrash;
 
 
-        public Friend(Context context, int screenX, int screenY) {
+        public Hamburger(Context context, int screenX, int screenY) {
             bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.hamburger);
             maxX = screenX;
             maxY = screenY;
@@ -71,6 +71,11 @@ public class Friend {
 
         public int getY() {
             return y;
+        }
+
+        //setters
+        public void setX(int x) {
+            this.x = x;
         }
 }
 
