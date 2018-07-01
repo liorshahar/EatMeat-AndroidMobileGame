@@ -99,7 +99,7 @@ public class GameView extends SurfaceView implements Runnable {
         boom.setX(-350);
         boom.setY(-350);
 
-        if(enemies.getX()==screenX) {
+        if (enemies.getX() == screenX) {
             flag = true;
         }
 
@@ -111,6 +111,7 @@ public class GameView extends SurfaceView implements Runnable {
             //boom.setX(enemies.getX());
             //boom.setY(enemies.getY());
             //TODO: play sound of money
+            score += 100;
             hamburger.setX(-200);
         }
 
@@ -120,50 +121,48 @@ public class GameView extends SurfaceView implements Runnable {
             boom.setY(enemies.getY());
             //TODO: play sound of crash
             enemies.setX(-200);
-        }
-        else {
-            if(flag) {
-                if(player.getDetectCrash().exactCenterX() >= enemies.getDetectCrash().exactCenterX()) {
-                    countMisses++;
-                    flag = false;
+            countMisses++;
 
-                    if(countMisses == 3) {
-                        playing = false;
-                        isGameOver = true;
+            //else {
+            //if (flag) {
+            //  if (player.getDetectCrash().exactCenterX() >= enemies.getDetectCrash().exactCenterX()) {
 
-                        //Assigning the scores to the highscore integer array
-                        for(int i=0; i<4 ;i++){
-                            if(highScore[i]<score){
+            //flag = false;
 
-                                final int finalI = i;
-                                highScore[i] = score;
-                                break;
-                            }
-                        }
+            if (countMisses == 3) {
+                playing = false;
+                isGameOver = true;
 
-                        //storing the scores through shared Preferences
-                        SharedPreferences.Editor e = sharedPreferences.edit();
-                        for(int i=0;i<4;i++){
-                            int j = i+1;
-                            e.putInt("score"+j,highScore[i]);
-                        }
-                        e.apply();
+                //Assigning the scores to the highscore integer array
+                for (int i = 0; i < 4; i++) {
+                    if (highScore[i] < score) {
+
+                        final int finalI = i;
+                        highScore[i] = score;
+                        break;
                     }
                 }
+
+                //storing the scores through shared Preferences
+                SharedPreferences.Editor e = sharedPreferences.edit();
+                for (int i = 0; i < 4; i++) {
+                    int j = i + 1;
+                    e.putInt("score" + j, highScore[i]);
+                }
+                e.apply();
             }
         }
 
+
         hamburger.update(player.getSpeed());
+    }
 
-        if(Rect.intersects(player.getDetectCrash(), hamburger.getDetectCrash())) {
-            //boom.setX(hamburger.getX());
-            //boom.setY(hamburger.getY());
 
-            score += 100;
-
-            //playing = false;
-            //isGameOver = true;
-
+        //if(Rect.intersects(player.getDetectCrash(), hamburger.getDetectCrash())) {
+        //boom.setX(hamburger.getX());
+        //boom.setY(hamburger.getY());
+        //playing = false;
+        //isGameOver = true;
             /*
             //Assigning the scores to the highscore integer array
             for(int i=0;i<4;i++){
@@ -181,10 +180,9 @@ public class GameView extends SurfaceView implements Runnable {
                 int j = i+1;
                 e.putInt("score"+j,highScore[i]);
             }
-            e.apply();*/
-        }
-    }
+            e.apply();
 
+            */
 
     private void draw() {
         if (surfaceHolder.getSurface().isValid()) {

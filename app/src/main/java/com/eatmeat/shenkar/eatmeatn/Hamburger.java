@@ -29,10 +29,11 @@ public class Hamburger {
             maxY = screenY;
             minX = 0;
             minY = 0;
+
             Random generator = new Random();
             speed = generator.nextInt(6) + 10;
             x = screenX;
-            y = generator.nextInt(maxY) - bitmap.getHeight();
+            y = 0; //generator.nextInt(maxY) - bitmap.getHeight();
 
             detectCrash = new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
 
