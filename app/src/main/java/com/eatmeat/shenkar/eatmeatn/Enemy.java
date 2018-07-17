@@ -37,6 +37,7 @@ public class Enemy {
         minX = 0;
         minY = 0;
 
+        //TODO: make him only on the ground
         Random generator = new Random();
         speed = generator.nextInt(6) + 10;
         x = screenX;

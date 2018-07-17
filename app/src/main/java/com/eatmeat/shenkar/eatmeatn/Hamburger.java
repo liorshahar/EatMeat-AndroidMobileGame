@@ -30,6 +30,7 @@ public class Hamburger {
             minX = 0;
             minY = 0;
 
+            //TODO: make a maximum high to the burger that the player can reach him
             Random generator = new Random();
             speed = generator.nextInt(6) + 10;
             x = screenX;
