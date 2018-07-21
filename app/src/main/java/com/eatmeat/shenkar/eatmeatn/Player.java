@@ -71,15 +71,12 @@ public class Player {
                 isTouched = true;
             //how high the player jumps
             if(isTouched && y > maxY - 500) {
-                y -= 30;
-            } else {
-                isTouched = false;
-                y += 20;
+                y -= 40;
             }
         } else {
             //slowing down if not boosting
-            speed -= 3;
-            y += 10;
+            speed -= 1;
+            y += 30;
         }
         //controlling the top speed
         if (speed > MAX_SPEED) {

@@ -45,11 +45,8 @@ public class GameView extends SurfaceView implements Runnable {
     int crashSound;
     int jumpSound;
     int eatSound;
+    int gameOver;
 
-    //the mediaplayer objects to configure the background music
-    //static MediaPlayer gameOnsound;
-    //final MediaPlayer killedEnemysound;
-    //final MediaPlayer gameOversound;
 
     public GameView(Context context, int screenX, int screenY) {
         super(context);
@@ -81,7 +78,7 @@ public class GameView extends SurfaceView implements Runnable {
         crashSound = mySound.load(context , R.raw.crash, 1);
         jumpSound = mySound.load(context , R.raw.jump, 1);
         eatSound = mySound.load(context , R.raw.eat, 1);
-
+        gameOver = mySound.load(context , R.raw.gameover, 1);
         //initializing the media players for the game sounds
         /*
         gameOnsound = MediaPlayer.create(context,R.raw.gameon);
@@ -239,6 +236,7 @@ public class GameView extends SurfaceView implements Runnable {
 
             //draw game Over when the game is over
             if(isGameOver){
+                mySound.play(gameOver , 1 ,1 ,1 , 0 ,1);
                 paint.setTextSize(180);
                 paint.setTextAlign(Paint.Align.CENTER);
 

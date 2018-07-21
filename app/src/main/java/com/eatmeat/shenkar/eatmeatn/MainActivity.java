@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         soundBtn = findViewById(R.id.sound_btn);
 
-        //mp = MediaPlayer.create(R.raw.sound_file_1);
-        //mp.start();
+        mp = MediaPlayer.create(this , R.raw.backroundmusic);
+        mp.start();
+        mp.setLooping(true);
     }
 
     @Override
@@ -49,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (v == scoreBtn) {
             startActivity(new Intent(MainActivity.this, HighScore.class));
+        }
+        if (v == soundBtn){
+            mp.stop();
         }
     }
 
