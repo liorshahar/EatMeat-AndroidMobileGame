@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
+import android.util.Log;
 
 public class Player {
 
@@ -17,11 +18,12 @@ public class Player {
     //motion speed the character
     private int speed = 0;
 
-    //boolean variable to track the ship is boosting or not
+    //boolean variable to track the player is boosting or not
     private boolean boosting;
     private boolean isTouched = false;
+
     //Gravity Value to add gravity effect on the ship
-    private final int GRAVITY = -20;
+    private final int GRAVITY = -40;
     //Controlling Y coordinate so that ship won't go outside the screen
     private int maxY;
     private int minY;
@@ -61,9 +63,9 @@ public class Player {
     // Method to update coordinate of character
     public void update(){
 
-        //if the ship is boosting
+
         if (boosting) {
-            //speeding up the ship
+
             speed += 2;
             if(y == maxY)
                 isTouched = true;
@@ -89,7 +91,7 @@ public class Player {
             speed = MIN_SPEED;
         }
 
-        //moving the ship down
+
         //but controlling it also so that it won't go off the screen
         if (y < minY) {
             y = minY;

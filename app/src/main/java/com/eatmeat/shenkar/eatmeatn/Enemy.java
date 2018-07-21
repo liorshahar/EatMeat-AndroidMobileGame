@@ -37,11 +37,11 @@ public class Enemy {
         minX = 0;
         minY = 0;
 
-        //TODO: make him only on the ground
+
         Random generator = new Random();
         speed = generator.nextInt(6) + 10;
         x = screenX;
-        y = generator.nextInt(maxY) - bitmap.getHeight();
+        y = maxY - 10 - bitmap.getHeight();
 
         //initializing rect object
         detectCrash = new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());

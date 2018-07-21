@@ -6,6 +6,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -39,6 +41,11 @@ public class GameView extends SurfaceView implements Runnable {
     //Shared Prefernces to store the High Scores
     SharedPreferences sharedPreferences;
 
+    SoundPool mySound;
+    int crashSound;
+    int jumpSound;
+    int eatSound;
+
     //the mediaplayer objects to configure the background music
     //static MediaPlayer gameOnsound;
     //final MediaPlayer killedEnemysound;
@@ -68,6 +75,12 @@ public class GameView extends SurfaceView implements Runnable {
         highScore[1] = sharedPreferences.getInt("score2",0);
         highScore[2] = sharedPreferences.getInt("score3",0);
         highScore[3] = sharedPreferences.getInt("score4",0);
+
+
+        mySound = new SoundPool(1 , AudioManager.STREAM_MUSIC , 0);
+        crashSound = mySound.load(context , R.raw.crash, 1);
+        jumpSound = mySound.load(context , R.raw.jump, 1);
+        eatSound = mySound.load(context , R.raw.eat, 1);
 
         //initializing the media players for the game sounds
         /*
@@ -110,7 +123,7 @@ public class GameView extends SurfaceView implements Runnable {
         if (Rect.intersects(player.getDetectCrash(), hamburger.getDetectCrash())) {
             //boom.setX(enemies.getX());
             //boom.setY(enemies.getY());
-            //TODO: play sound of money
+            mySound.play(eatSound , 1 ,1,1 , 0 ,1);
             score += 100;
             hamburger.setX(-200);
         }
@@ -119,7 +132,7 @@ public class GameView extends SurfaceView implements Runnable {
         if (Rect.intersects(player.getDetectCrash(), enemies.getDetectCrash())) {
             boom.setX(enemies.getX());
             boom.setY(enemies.getY());
-            //TODO: play sound of crash
+            mySound.play(crashSound , 1 ,1,1 , 0 ,1);
             enemies.setX(-200);
             countMisses++;
 
@@ -267,6 +280,7 @@ public class GameView extends SurfaceView implements Runnable {
                 player.stopBoosting();
                 break;
             case MotionEvent.ACTION_DOWN: //start jump
+                mySound.play(jumpSound , 1 ,1,1 , 0 ,1);
                 player.setBoosting();
                 break;
         }
