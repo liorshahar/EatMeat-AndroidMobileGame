@@ -2,6 +2,7 @@ package com.eatmeat.shenkar.eatmeatn;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -18,6 +19,9 @@ public class HighScore extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_high_score);
+
+        //setting the orientation to landscape
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         //initializing the textViews
         textView = (TextView) findViewById(R.id.textView);

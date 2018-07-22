@@ -1,6 +1,8 @@
 package com.eatmeat.shenkar.eatmeatn;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
@@ -13,8 +15,12 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //setting the orientation to landscape
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         //Getting display object
         Display display = getWindowManager().getDefaultDisplay();
+
 
         //Getting the screen resolution into point object
         Point size = new Point();
@@ -24,7 +30,7 @@ public class GameActivity extends AppCompatActivity {
         //this time we are also passing the screen size to the GameView constructor
         gameView = new GameView(this, size.x, size.y);
 
-        //adding it to contentview
+        //adding it to content view
         setContentView(gameView);
     }
 

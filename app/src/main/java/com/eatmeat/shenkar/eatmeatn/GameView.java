@@ -2,10 +2,14 @@ package com.eatmeat.shenkar.eatmeatn;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.view.MotionEvent;
@@ -50,6 +54,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     public GameView(Context context, int screenX, int screenY) {
         super(context);
+
         player = new Player(context, screenX, screenY);
 
         surfaceHolder = getHolder();
@@ -197,9 +202,9 @@ public class GameView extends SurfaceView implements Runnable {
     private void draw() {
         if (surfaceHolder.getSurface().isValid()) {
             canvas = surfaceHolder.lockCanvas();
-            canvas.drawColor(Color.BLACK);
+            canvas.drawColor(Color.WHITE);
 
-            paint.setColor(Color.WHITE);
+            paint.setColor(Color.BLACK);
             paint.setTextSize(20);
 
             paint.setTextSize(40);
