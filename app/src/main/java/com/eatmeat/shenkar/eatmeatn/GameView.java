@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
@@ -15,6 +16,8 @@ import android.media.SoundPool;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 public class GameView extends SurfaceView implements Runnable {
 
@@ -58,6 +61,14 @@ public class GameView extends SurfaceView implements Runnable {
         player = new Player(context, screenX, screenY);
 
         surfaceHolder = getHolder();
+        //surfaceHolder.setZOrderOnTop(true);
+        surfaceHolder.setFormat(PixelFormat.TRANSPARENT);
+
+// Setup your ImageView
+        ImageView bgImagePanel = new ImageView(context);
+        bgImagePanel.setBackgroundResource(R.drawable.cover); // use any Bitmap or BitmapDrawable you want
+
+
         paint = new Paint();
 
         enemies = new Enemy(context, screenX, screenY);
