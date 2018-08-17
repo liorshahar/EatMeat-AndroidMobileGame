@@ -1,5 +1,6 @@
 package com.eatmeat.shenkar.eatmeatn;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -9,10 +10,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -54,6 +57,10 @@ public class GameView extends SurfaceView implements Runnable {
     int eatSound;
     int gameOver;
 
+    Bitmap background;
+    int dWidth, dHeight;
+    Rect rect;
+
 
     public GameView(Context context, int screenX, int screenY) {
         super(context);
@@ -64,9 +71,17 @@ public class GameView extends SurfaceView implements Runnable {
         //surfaceHolder.setZOrderOnTop(true);
         surfaceHolder.setFormat(PixelFormat.TRANSPARENT);
 
-// Setup your ImageView
+        // Setup your ImageView
         ImageView bgImagePanel = new ImageView(context);
         bgImagePanel.setBackgroundResource(R.drawable.cover); // use any Bitmap or BitmapDrawable you want
+
+        background = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
+        Display display = ((Activity) getContext()).getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        dWidth = size.x;
+        dHeight = size.y;
+        rect = new Rect(0,0, dWidth, dHeight);
 
 
         paint = new Paint();
@@ -95,15 +110,6 @@ public class GameView extends SurfaceView implements Runnable {
         jumpSound = mySound.load(context , R.raw.jump, 1);
         eatSound = mySound.load(context , R.raw.eat, 1);
         gameOver = mySound.load(context , R.raw.gameover, 1);
-        //initializing the media players for the game sounds
-        /*
-        gameOnsound = MediaPlayer.create(context,R.raw.gameon);
-        killedEnemysound = MediaPlayer.create(context,R.raw.killedenemy);
-        gameOversound = MediaPlayer.create(context,R.raw.gameover);
-
-        //starting the game music as the game starts
-        gameOnsound.start();
-        */
 
     }
 
@@ -184,37 +190,15 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
 
-        //if(Rect.intersects(player.getDetectCrash(), hamburger.getDetectCrash())) {
-        //boom.setX(hamburger.getX());
-        //boom.setY(hamburger.getY());
-        //playing = false;
-        //isGameOver = true;
-            /*
-            //Assigning the scores to the highscore integer array
-            for(int i=0;i<4;i++){
-                if(highScore[i]<score){
-
-                    final int finalI = i;
-                    highScore[i] = score;
-                    break;
-                }
-            }
-
-            //storing the scores through shared Preferences
-            SharedPreferences.Editor e = sharedPreferences.edit();
-            for(int i=0;i<4;i++){
-                int j = i+1;
-                e.putInt("score"+j,highScore[i]);
-            }
-            e.apply();
-
-            */
-
     private void draw() {
         if (surfaceHolder.getSurface().isValid()) {
             canvas = surfaceHolder.lockCanvas();
-            canvas.drawColor(Color.WHITE);
-
+            canvas.drawBitmap(
+                    background,
+                    null,
+                    rect,
+                    null
+            );
             paint.setColor(Color.BLACK);
             paint.setTextSize(20);
 
