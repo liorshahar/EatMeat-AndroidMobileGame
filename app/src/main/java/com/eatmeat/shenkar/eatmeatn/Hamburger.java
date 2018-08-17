@@ -35,7 +35,8 @@ public class Hamburger {
 
             speed = generator.nextInt(6) + 10;
             x = screenX;
-            y = generateY(); //generator.nextInt(maxY) - bitmap.getHeight();
+            y = maxY - 10 - bitmap.getHeight();
+
 
             detectCrash = new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
 
@@ -59,7 +60,8 @@ public class Hamburger {
                 Random generator = new Random();
                 speed = generator.nextInt(10) + 10;
                 x = maxX;
-                y = generateY();
+                y = maxY - 10 - bitmap.getHeight();
+
             }
 
             detectCrash.left = x;

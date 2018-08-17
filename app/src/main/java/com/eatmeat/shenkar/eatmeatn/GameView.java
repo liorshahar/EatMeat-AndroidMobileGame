@@ -73,7 +73,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         // Setup your ImageView
         ImageView bgImagePanel = new ImageView(context);
-        bgImagePanel.setBackgroundResource(R.drawable.cover); // use any Bitmap or BitmapDrawable you want
+        bgImagePanel.setBackgroundResource(R.drawable.cover);
 
         background = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
         Display display = ((Activity) getContext()).getWindowManager().getDefaultDisplay();
@@ -123,7 +123,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
-        score++;
+//        score++;
 
         player.update();
 
@@ -154,12 +154,6 @@ public class GameView extends SurfaceView implements Runnable {
             mySound.play(crashSound , 1 ,1,1 , 0 ,1);
             enemies.setX(-200);
             countMisses++;
-
-            //else {
-            //if (flag) {
-            //  if (player.getDetectCrash().exactCenterX() >= enemies.getDetectCrash().exactCenterX()) {
-
-            //flag = false;
 
             if (countMisses == 3) {
                 playing = false;
