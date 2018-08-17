@@ -64,9 +64,9 @@ public class GameView extends SurfaceView implements Runnable {
         //surfaceHolder.setZOrderOnTop(true);
         surfaceHolder.setFormat(PixelFormat.TRANSPARENT);
 
-// Setup your ImageView
+        // Setup ImageView
         ImageView bgImagePanel = new ImageView(context);
-        bgImagePanel.setBackgroundResource(R.drawable.cover); // use any Bitmap or BitmapDrawable you want
+        bgImagePanel.setBackgroundResource(R.drawable.cover);
 
 
         paint = new Paint();
@@ -95,15 +95,6 @@ public class GameView extends SurfaceView implements Runnable {
         jumpSound = mySound.load(context , R.raw.jump, 1);
         eatSound = mySound.load(context , R.raw.eat, 1);
         gameOver = mySound.load(context , R.raw.gameover, 1);
-        //initializing the media players for the game sounds
-        /*
-        gameOnsound = MediaPlayer.create(context,R.raw.gameon);
-        killedEnemysound = MediaPlayer.create(context,R.raw.killedenemy);
-        gameOversound = MediaPlayer.create(context,R.raw.gameover);
-
-        //starting the game music as the game starts
-        gameOnsound.start();
-        */
 
     }
 
@@ -117,7 +108,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
-        score++;
+//        score++;
 
         player.update();
 
@@ -149,12 +140,6 @@ public class GameView extends SurfaceView implements Runnable {
             enemies.setX(-200);
             countMisses++;
 
-            //else {
-            //if (flag) {
-            //  if (player.getDetectCrash().exactCenterX() >= enemies.getDetectCrash().exactCenterX()) {
-
-            //flag = false;
-
             if (countMisses == 3) {
                 playing = false;
                 isGameOver = true;
@@ -182,33 +167,6 @@ public class GameView extends SurfaceView implements Runnable {
 
         hamburger.update(player.getSpeed());
     }
-
-
-        //if(Rect.intersects(player.getDetectCrash(), hamburger.getDetectCrash())) {
-        //boom.setX(hamburger.getX());
-        //boom.setY(hamburger.getY());
-        //playing = false;
-        //isGameOver = true;
-            /*
-            //Assigning the scores to the highscore integer array
-            for(int i=0;i<4;i++){
-                if(highScore[i]<score){
-
-                    final int finalI = i;
-                    highScore[i] = score;
-                    break;
-                }
-            }
-
-            //storing the scores through shared Preferences
-            SharedPreferences.Editor e = sharedPreferences.edit();
-            for(int i=0;i<4;i++){
-                int j = i+1;
-                e.putInt("score"+j,highScore[i]);
-            }
-            e.apply();
-
-            */
 
     private void draw() {
         if (surfaceHolder.getSurface().isValid()) {
