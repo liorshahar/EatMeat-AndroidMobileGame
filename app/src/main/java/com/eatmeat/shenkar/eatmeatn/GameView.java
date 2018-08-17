@@ -140,10 +140,11 @@ public class GameView extends SurfaceView implements Runnable {
 
         //if collect burger
         if (Rect.intersects(player.getDetectCrash(), hamburger.getDetectCrash())) {
-            //boom.setX(enemies.getX());
-            //boom.setY(enemies.getY());
             mySound.play(eatSound , 1 ,1,1 , 0 ,1);
             score += 100;
+            if (score % 400 == 0) {
+                player.incSpeed();
+            }
             hamburger.setX(-200);
         }
 

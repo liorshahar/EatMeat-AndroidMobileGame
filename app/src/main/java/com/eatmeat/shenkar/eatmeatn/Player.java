@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
-import android.util.Log;
 
 public class Player {
 
@@ -17,10 +16,12 @@ public class Player {
 
     //motion speed the character
     private int speed = 0;
+    private int delay;
 
     //boolean variable to track the player is boosting or not
     private boolean boosting;
-    private boolean isTouched = false;
+    private boolean isTop = false;
+    private boolean isJumping = false;
 
     //Gravity Value to add gravity effect on the ship
     private final int GRAVITY = -40;
@@ -35,12 +36,13 @@ public class Player {
 
     public Player(Context context , int screenX  , int screenY){
         this.x = 300;
-        this.y = 0;
 
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.oneman);
 
+        this.y = screenY - bitmap.getHeight() - 530;
+
         //calculating maxY - player touch the ground
-        maxY = screenY - bitmap.getHeight();
+        maxY = screenY - bitmap.getHeight() - 530;
         //top edge's y point is 0 so min y will always be zero
         minY = 0;
         //setting the boosting value to false initially
@@ -62,25 +64,30 @@ public class Player {
 
     // Method to update coordinate of character
     public void update(){
+        speed += 2;
 
-
-        if (boosting) {
-
-            speed += 2;
-            if(y == maxY)
-                isTouched = true;
-            //how high the player jumps
-            if(isTouched && y > maxY - 500) {
-                y-=30;
-            } else {
-                isTouched = false;
-                y+=20;
-            }
-        } else {
-            //slowing down if not boosting
-            speed -= 1;
-            y += 10;
+        if (y < maxY - 400){
+            isTop = true;
         }
+
+        if (boosting){
+            isJumping = true;
+        }
+        if (isJumping && !isTop){
+                y-=70;
+                delay = 1;
+        } else {
+            isJumping = false;
+            if (delay == 0) {
+                y += 70;
+                if (y <= minY){
+                    isTop = false;
+                }
+            } else {
+                delay -= 1;
+            }
+        }
+
         //controlling the top speed
         if (speed > MAX_SPEED) {
             speed = MAX_SPEED;
@@ -98,6 +105,8 @@ public class Player {
         }
         if (y > maxY) {
             y = maxY;
+            isJumping = false;
+            isTop = false;
         }
 
         detectCrash.left = x;
@@ -122,6 +131,10 @@ public class Player {
 
     public int getSpeed() {
         return speed;
+    }
+
+    public void incSpeed(){
+        speed += 2;
     }
 
     public Rect getDetectCrash() {
