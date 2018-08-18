@@ -8,7 +8,8 @@ import android.graphics.Rect;
 public class Player {
 
     // Bitmap to get character from image
-    private Bitmap bitmap;
+    private Bitmap[] player;
+    private int playerFrame = 0;
 
     // Coordinates
     private int x;
@@ -36,19 +37,21 @@ public class Player {
 
     public Player(Context context , int screenX  , int screenY){
         this.x = 300;
+        player = new Bitmap[3];
+        player[0] = BitmapFactory.decodeResource(context.getResources(), R.drawable.oneman);
+        player[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.oneman2);
+        player[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.oneman3);
 
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.oneman);
-
-        this.y = screenY - bitmap.getHeight() - 530;
+        this.y = screenY - player[playerFrame].getHeight() - 530;
 
         //calculating maxY - player touch the ground
-        maxY = screenY - bitmap.getHeight() - 530;
+        maxY = screenY - player[playerFrame].getHeight() - 530;
         //top edge's y point is 0 so min y will always be zero
         minY = 0;
         //setting the boosting value to false initially
         boosting = false;
 
-        detectCrash = new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
+        detectCrash = new Rect(x, y, player[playerFrame].getWidth(), player[playerFrame].getHeight());
 
     }
 
@@ -70,13 +73,21 @@ public class Player {
             isTop = true;
         }
 
+        if(playerFrame == 0){
+            playerFrame = 1;
+        } else {
+            playerFrame = 0;
+        }
+
         if (boosting){
             isJumping = true;
+            playerFrame = 2;
         }
+
         if (isJumping && !isTop){
                 y-=70;
-                delay = 1;
-        } else {
+                delay = 3;
+        } else if(isTop){
             isJumping = false;
             if (delay == 0) {
                 y += 70;
@@ -111,14 +122,16 @@ public class Player {
 
         detectCrash.left = x;
         detectCrash.top = y;
-        detectCrash.right = x + bitmap.getWidth();
-        detectCrash.bottom = y + bitmap.getHeight();
+        detectCrash.right = x + player[playerFrame].getWidth();
+        detectCrash.bottom = y + player[playerFrame].getHeight();
+
+
 
     }
 
     //getters
     public Bitmap getBitmap() {
-        return bitmap;
+        return player[playerFrame];
     }
 
     public int getX() {
