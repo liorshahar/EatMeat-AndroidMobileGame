@@ -13,7 +13,7 @@ public class Hamburger {
         private Bitmap bitmap;
         private int x;
         private int y;
-        private int speed = 1;
+        private int speed;
 
         private int maxX;
         private int minX;
@@ -52,6 +52,7 @@ public class Hamburger {
 
 
         }
+
         public void update(int playerSpeed) {
 
             x -= playerSpeed;
@@ -70,11 +71,6 @@ public class Hamburger {
             detectCrash.bottom = y + bitmap.getHeight();
         }
 
-        //one more getter for getting the rect object
-    //TODO: add rect object
-        public Rect getDetectCrash() {
-            return detectCrash;
-        }
 
         //getters
         public Bitmap getBitmap() {
@@ -89,9 +85,15 @@ public class Hamburger {
             return y;
         }
 
+        public Rect getDetectCrash() {
+        return detectCrash;
+    }
+
+
         //setters
         public void setX(int x) {
             this.x = x;
         }
+
 }
 

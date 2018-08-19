@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void onSoundClicked(View view) {
-        //TODO: adding audio manager for sounds mute and unmute
 
         if (isSoundMute) {
             mp.start();

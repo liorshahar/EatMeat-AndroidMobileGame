@@ -45,7 +45,7 @@ public class GameView extends SurfaceView implements Runnable {
     int score;
     int highScore[] = new int[4];
 
-    //Shared Prefernces to store the High Scores
+    //Shared Preferences to store the High Scores
     SharedPreferences sharedPreferences;
 
     SoundPool mySound;
@@ -65,10 +65,8 @@ public class GameView extends SurfaceView implements Runnable {
         player = new Player(context, screenX, screenY);
 
         surfaceHolder = getHolder();
-        //surfaceHolder.setZOrderOnTop(true);
         surfaceHolder.setFormat(PixelFormat.TRANSPARENT);
 
-        // Setup your ImageView
         ImageView bgImagePanel = new ImageView(context);
         bgImagePanel.setBackgroundResource(R.drawable.cover);
 
@@ -79,7 +77,6 @@ public class GameView extends SurfaceView implements Runnable {
         dWidth = size.x;
         dHeight = size.y;
         rect = new Rect(0,0, dWidth, dHeight);
-
 
         paint = new Paint();
 
@@ -120,7 +117,6 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
-        //score++;
 
         player.update();
 
@@ -142,10 +138,10 @@ public class GameView extends SurfaceView implements Runnable {
             if (score % 400 == 0) {
                 player.incSpeed();
             }
-            hamburger.setX(-200);
+            hamburger.setX(-250);
         }
 
-        //if crash
+        //if crash with vegetables
         if (Rect.intersects(player.getDetectCrash(), enemies.getDetectCrash())) {
             boom.setX(enemies.getX());
             boom.setY(enemies.getY());
@@ -177,7 +173,6 @@ public class GameView extends SurfaceView implements Runnable {
             }
         }
 
-
         hamburger.update(player.getSpeed());
     }
 
@@ -195,7 +190,7 @@ public class GameView extends SurfaceView implements Runnable {
             paint.setTextSize(20);
 
             paint.setTextSize(40);
-            canvas.drawText("Score:"+score,100,50,paint);
+            canvas.drawText("Score: "+score,100,50,paint);
 
             canvas.drawBitmap(
                     player.getBitmap(),
@@ -211,7 +206,6 @@ public class GameView extends SurfaceView implements Runnable {
                     paint
             );
 
-
             canvas.drawBitmap(
                     boom.getBitmap(),
                     boom.getX(),
@@ -225,6 +219,7 @@ public class GameView extends SurfaceView implements Runnable {
                     hamburger.getY(),
                     paint
             );
+
 
             //draw game Over when the game is over
             if(isGameOver){
@@ -275,6 +270,7 @@ public class GameView extends SurfaceView implements Runnable {
                 player.Touch();
                 break;
         }
+
         return true;
     }
 }

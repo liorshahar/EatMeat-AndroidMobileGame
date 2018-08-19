@@ -21,13 +21,12 @@ public class GameActivity extends AppCompatActivity {
         //Getting display object
         Display display = getWindowManager().getDefaultDisplay();
 
-
         //Getting the screen resolution into point object
         Point size = new Point();
         display.getSize(size);
 
         //Initializing game view object
-        //this time we are also passing the screen size to the GameView constructor
+        //passing the screen size to the GameView constructor
         gameView = new GameView(this, size.x, size.y);
 
         //adding it to content view
@@ -39,6 +38,7 @@ public class GameActivity extends AppCompatActivity {
     protected  void onPause(){
         super.onPause();
     }
+
 
     // Running the game when activity is resumed
     @Override

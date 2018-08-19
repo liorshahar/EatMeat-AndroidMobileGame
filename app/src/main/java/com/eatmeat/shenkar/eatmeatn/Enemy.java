@@ -16,7 +16,7 @@ public class Enemy {
     private int y;
 
     //enemy speed
-    private int speed = 1;
+    private int speed = 2;
 
     //min and max coordinates to keep the enemy inside the screen
     private int maxX;
