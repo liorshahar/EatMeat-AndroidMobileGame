@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cover"
+    android:background="@drawable/bg"
     tools:context=".MainActivity">
 
     <ImageButton
@@ -21,54 +21,45 @@
         android:background="@drawable/start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.636"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.509" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="275dp"
-        android:layout_marginLeft="112dp"
-        android:layout_marginStart="112dp"
         android:layout_marginTop="16dp"
-        android:text="EAT"
-        android:textColor="#54331d"
+        android:gravity="center"
+        android:text="Eat Meat"
+        android:textAllCaps="false"
+        android:textColor="#c93632"
         android:textSize="65sp"
         app:fontFamily="@font/alfa_slab_one"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/gifTextView"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.611" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="80dp"
-        android:layout_marginRight="80dp"
-        android:text="MEAT"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="65sp"
-        app:fontFamily="@font/alfa_slab_one"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.674"
-        app:layout_constraintStart_toEndOf="@+id/textView" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <pl.droidsonroids.gif.GifTextView
         android:id="@+id/gifTextView"
         android:layout_width="wrap_content"
         android:layout_height="223dp"
-        android:layout_marginBottom="152dp"
-        android:layout_marginEnd="268dp"
-        android:layout_marginRight="268dp"
+        android:layout_marginBottom="132dp"
+        android:layout_marginEnd="280dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="280dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/fatguy"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.992"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.645" />
 
     <ImageButton
         android:id="@+id/info_btn"
@@ -76,16 +67,13 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="243dp"
         android:background="@drawable/info"
         android:onClick="onInfoClicked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/sound_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.509" />
+        app:layout_constraintVertical_bias="0.527" />
 
     <ImageButton
         android:id="@+id/sound_btn"
@@ -93,23 +81,30 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="76dp"
-        android:layout_marginRight="76dp"
-        android:layout_marginTop="135dp"
         android:background="@drawable/mute"
         android:onClick="onSoundClicked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/start_btn"
         app:layout_constraintStart_toEndOf="@+id/info_btn"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.537" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.562" />
 
     <ImageButton
         android:id="@+id/score_btn"
         android:layout_width="61dp"
         android:layout_height="47dp"
-        app:srcCompat="@android:drawable/btn_star_big_on"
-        tools:layout_editor_absoluteX="576dp"
-        tools:layout_editor_absoluteY="331dp" />
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.968"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.048"
+        app:srcCompat="@android:drawable/btn_star_big_on" />
 
 </android.support.constraint.ConstraintLayout>
