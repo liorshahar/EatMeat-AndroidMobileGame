@@ -123,7 +123,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
-//        score++;
+        //score++;
 
         player.update();
 
@@ -257,6 +257,7 @@ public class GameView extends SurfaceView implements Runnable {
             gameThread.join();
         } catch (InterruptedException e) {
         }
+
     }
 
     public void resume() {

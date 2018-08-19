@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mp = MediaPlayer.create(this , R.raw.backroundmusic);
         mp.start();
         mp.setLooping(true);
+        isSoundMute = false;
     }
 
     @Override
@@ -51,9 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v == scoreBtn) {
             startActivity(new Intent(MainActivity.this, HighScore.class));
         }
-        if (v == soundBtn){
-            mp.stop();
-        }
+
     }
 
 
@@ -66,17 +65,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //TODO: adding audio manager for sounds mute and unmute
 
         if (isSoundMute) {
-            mp.setVolume(1, 1);
-            soundBtn.setImageResource(R.drawable.unmute);
+            mp.start();
+            soundBtn.setImageResource(R.drawable.mute);
             isSoundMute = false;
             return;
         } else if (!isSoundMute) {
-            mp.setVolume(0, 0);
-            soundBtn.setImageResource(R.drawable.mute);
+            mp.pause();
+            soundBtn.setImageResource(R.drawable.unmute);
             isSoundMute = true;
         }
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mp.pause();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mp.start();
+    }
 }
