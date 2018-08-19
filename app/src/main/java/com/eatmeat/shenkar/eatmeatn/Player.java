@@ -42,10 +42,10 @@ public class Player {
         player[1] = BitmapFactory.decodeResource(context.getResources(), R.drawable.oneman2);
         player[2] = BitmapFactory.decodeResource(context.getResources(), R.drawable.oneman3);
 
-        this.y = screenY - player[playerFrame].getHeight() - 530;
+        this.y = screenY - player[playerFrame].getHeight() - 200;
 
         //calculating maxY - player touch the ground
-        maxY = screenY - player[playerFrame].getHeight() - 530;
+        maxY = screenY - player[playerFrame].getHeight() - 200;
         //top edge's y point is 0 so min y will always be zero
         minY = 0;
         //setting the boosting value to false initially
@@ -74,24 +74,24 @@ public class Player {
         // jumping
         else if (lockEvent) {
             // if player reach top of screen
-            if (y < maxY - 500){
+            if (y < maxY - 600){
                 isTop = true;
             }
             if (!isTop){
                     playerFrame = 2;
+                    speed++;
                     y-=70;
                     delay = 3;
             } else {
-                if (delay == 0) {
-                    playerFrame = 0;
-                    y += 70;
-                    if (y > maxY){
-                        isTop = false;
-                        lockEvent = false;
-                    }
-                } else {
-                    delay -= 1;
+
+                playerFrame = 0;
+                speed--;
+                y += 70;
+                if (y > maxY){
+                    isTop = false;
+                    lockEvent = false;
                 }
+
             }
         }
         // no jump detected
