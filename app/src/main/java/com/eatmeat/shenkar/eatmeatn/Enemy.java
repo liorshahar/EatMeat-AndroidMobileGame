@@ -41,7 +41,7 @@ public class Enemy {
         Random generator = new Random();
         speed = generator.nextInt(6) + 10;
         x = screenX;
-        y = screenY - bitmap.getHeight() - 200;
+        y = screenY - bitmap.getHeight() - (screenY/7);
 
         //initializing rect object
         detectCrash = new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
@@ -59,7 +59,7 @@ public class Enemy {
             Random generator = new Random();
             speed = generator.nextInt(10) + 10;
             x = maxX;
-            y = maxY - bitmap.getHeight() - 200;
+            y = maxY - bitmap.getHeight() - (maxY/7);
         }
 
         //Adding the top, left, bottom and right to the rect object
