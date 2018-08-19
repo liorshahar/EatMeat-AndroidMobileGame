@@ -3,7 +3,6 @@ package com.eatmeat.shenkar.eatmeatn;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,7 +11,6 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.view.Display;
@@ -20,7 +18,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 public class GameView extends SurfaceView implements Runnable {
 
@@ -271,11 +268,11 @@ public class GameView extends SurfaceView implements Runnable {
     public boolean onTouchEvent(MotionEvent motionEvent) {
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_UP: //stop jump
-                player.stopBoosting();
+                player.stopTouch();
                 break;
             case MotionEvent.ACTION_DOWN: //start jump
                 mySound.play(jumpSound , 1 ,1,1 , 0 ,1);
-                player.setBoosting();
+                player.Touch();
                 break;
         }
         return true;

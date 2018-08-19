@@ -20,11 +20,11 @@ public class Player {
     private int delay;
 
     //boolean variable to track the player is boosting or not
-    private boolean boosting;
+    private boolean isTouch;
     private boolean isTop = false;
     private boolean isJumping = false;
+    private boolean lockEvent = false;
 
-    //Gravity Value to add gravity effect on the ship
     private final int GRAVITY = -40;
     //Controlling Y coordinate so that ship won't go outside the screen
     private int maxY;
@@ -49,53 +49,57 @@ public class Player {
         //top edge's y point is 0 so min y will always be zero
         minY = 0;
         //setting the boosting value to false initially
-        boosting = false;
+        isTouch = false;
 
         detectCrash = new Rect(x, y, player[playerFrame].getWidth(), player[playerFrame].getHeight());
 
     }
 
     //setting boosting true
-    public void setBoosting() {
-        boosting = true;
+    public void Touch() {
+        isTouch = true;
     }
 
     //setting boosting false
-    public void stopBoosting() {
-        boosting = false;
+    public void stopTouch() {
+        isTouch = false;
     }
 
     // Method to update coordinate of character
     public void update(){
-        speed += 2;
-
-        if (y < maxY - 400){
-            isTop = true;
+        // touch detected
+        if(isTouch && !lockEvent){
+            lockEvent = true;
         }
-
-        if(playerFrame == 0){
-            playerFrame = 1;
-        } else {
-            playerFrame = 0;
-        }
-
-        if (boosting){
-            isJumping = true;
-            playerFrame = 2;
-        }
-
-        if (isJumping && !isTop){
-                y-=70;
-                delay = 3;
-        } else if(isTop){
-            isJumping = false;
-            if (delay == 0) {
-                y += 70;
-                if (y <= minY){
-                    isTop = false;
-                }
+        // jumping
+        else if (lockEvent) {
+            // if player reach top of screen
+            if (y < maxY - 400){
+                isTop = true;
+            }
+            if (!isTop){
+                    playerFrame = 2;
+                    y-=70;
+                    delay = 3;
             } else {
-                delay -= 1;
+                if (delay == 0) {
+                    playerFrame = 0;
+                    y += 70;
+                    if (y > maxY){
+                        isTop = false;
+                        lockEvent = false;
+                    }
+                } else {
+                    delay -= 1;
+                }
+            }
+        }
+        // no jump detected
+        else {
+            if(playerFrame == 0) {
+                playerFrame = 1;
+            } else {
+                playerFrame = 0;
             }
         }
 
@@ -116,8 +120,6 @@ public class Player {
         }
         if (y > maxY) {
             y = maxY;
-            isJumping = false;
-            isTop = false;
         }
 
         detectCrash.left = x;
