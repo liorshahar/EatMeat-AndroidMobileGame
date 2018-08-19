@@ -74,7 +74,7 @@ public class Player {
         // jumping
         else if (lockEvent) {
             // if player reach top of screen
-            if (y < maxY - 400){
+            if (y < maxY - 500){
                 isTop = true;
             }
             if (!isTop){
