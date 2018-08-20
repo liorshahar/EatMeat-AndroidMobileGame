@@ -67,6 +67,7 @@ public class Player {
 
     // Method to update coordinate of character
     public void update(){
+
         // touch detected
         if(isTouch && !lockEvent){
             lockEvent = true;
@@ -74,7 +75,7 @@ public class Player {
         // jumping
         else if (lockEvent) {
             // if player reach top of screen
-            if (y < maxY - 600){
+            if (y < maxY - 500){
                 isTop = true;
             }
             if (!isTop){
@@ -104,7 +105,7 @@ public class Player {
         }
 
         //controlling the top speed
-        if (speed > MAX_SPEED) {
+        if(speed > MAX_SPEED) {
             speed = MAX_SPEED;
         }
         //if the speed is less than min speed
@@ -126,8 +127,6 @@ public class Player {
         detectCrash.top = y;
         detectCrash.right = x + player[playerFrame].getWidth();
         detectCrash.bottom = y + player[playerFrame].getHeight();
-
-
 
     }
 
