@@ -36,6 +36,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     int screenX;
     int countMisses;
+    int lifes;
 
     //flag that indicate the an enemy entered the game screen
     boolean flag;
@@ -53,7 +54,7 @@ public class GameView extends SurfaceView implements Runnable {
     int jumpSound;
     int eatSound;
     int gameOver;
-
+    Bitmap burgerLife;
     Bitmap background;
     int dWidth, dHeight;
     Rect rect;
@@ -71,6 +72,7 @@ public class GameView extends SurfaceView implements Runnable {
         bgImagePanel.setBackgroundResource(R.drawable.cover);
 
         background = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
+        burgerLife = BitmapFactory.decodeResource(getResources(), R.drawable.burgerlife);
         Display display = ((Activity) getContext()).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -86,6 +88,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         this.screenX = screenX;
         countMisses = 0;
+        lifes = 3;
         isGameOver = false;
 
         score = 0;
@@ -141,6 +144,12 @@ public class GameView extends SurfaceView implements Runnable {
             hamburger.setX(-250);
         }
 
+        int startX = 680;
+        for (int i=0; i<lifes; i++){
+            canvas.drawBitmap(burgerLife, startX, 10, null);
+            startX += 100;
+        }
+
         //if crash with vegetables
         if (Rect.intersects(player.getDetectCrash(), enemies.getDetectCrash())) {
             boom.setX(enemies.getX());
@@ -148,6 +157,7 @@ public class GameView extends SurfaceView implements Runnable {
             mySound.play(crashSound , 1 ,1,1 , 0 ,1);
             enemies.setX(-200);
             countMisses++;
+            lifes--;
 
             if (countMisses == 3) {
                 playing = false;
