@@ -23,7 +23,8 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".InformationActivity" />
-        <activity android:name=".HighScore"></activity>
+        <activity android:name=".HighScore" />
+        <activity android:name=".Howto"></activity>
     </application>
 
 </manifest>

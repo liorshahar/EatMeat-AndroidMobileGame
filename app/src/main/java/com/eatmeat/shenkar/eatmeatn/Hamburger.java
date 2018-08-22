@@ -55,7 +55,7 @@ public class Hamburger {
 
         public void update(int playerSpeed) {
 
-            x -= playerSpeed;
+            x -= (playerSpeed+8);
             x -= speed;
             if (x < minX - bitmap.getWidth()) {
                 Random generator = new Random();

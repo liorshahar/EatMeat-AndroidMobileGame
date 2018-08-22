@@ -148,7 +148,7 @@ public class Player {
     }
 
     public void incSpeed(){
-        speed += 2;
+        speed += 5;
     }
 
     public Rect getDetectCrash() {
