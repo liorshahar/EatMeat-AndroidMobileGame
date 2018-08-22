@@ -60,6 +60,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(new Intent(MainActivity.this, InformationActivity.class));
     }
 
+    public void onHowToPlayClicked(View view) {
+        startActivity(new Intent(MainActivity.this, Howto.class));
+    }
+
 
     public void onSoundClicked(View view) {
 
