@@ -147,10 +147,9 @@ public class GameView extends SurfaceView implements Runnable {
             boom.setY(enemies.getY());
             mySound.play(crashSound , 1 ,1,1 , 0 ,1);
             enemies.setX(-200);
-            countMisses++;
             lifes--;
 
-            if (countMisses == 3) {
+            if (lifes == 0) {
                 playing = false;
                 isGameOver = true;
 
