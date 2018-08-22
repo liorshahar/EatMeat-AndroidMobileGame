@@ -68,9 +68,6 @@ public class GameView extends SurfaceView implements Runnable {
         surfaceHolder = getHolder();
         surfaceHolder.setFormat(PixelFormat.TRANSPARENT);
 
-        ImageView bgImagePanel = new ImageView(context);
-        bgImagePanel.setBackgroundResource(R.drawable.cover);
-
         background = BitmapFactory.decodeResource(getResources(), R.drawable.bg);
         burgerLife = BitmapFactory.decodeResource(getResources(), R.drawable.burgerlife);
         Display display = ((Activity) getContext()).getWindowManager().getDefaultDisplay();
@@ -144,12 +141,6 @@ public class GameView extends SurfaceView implements Runnable {
             hamburger.setX(-250);
         }
 
-        int startX = 680;
-        for (int i=0; i<lifes; i++){
-            canvas.drawBitmap(burgerLife, startX, 10, null);
-            startX += 100;
-        }
-
         //if crash with vegetables
         if (Rect.intersects(player.getDetectCrash(), enemies.getDetectCrash())) {
             boom.setX(enemies.getX());
@@ -196,9 +187,8 @@ public class GameView extends SurfaceView implements Runnable {
                     rect,
                     null
             );
-            paint.setColor(Color.BLACK);
-            paint.setTextSize(20);
 
+            paint.setColor(Color.BLACK);
             paint.setTextSize(40);
             canvas.drawText("Score: "+score,100,50,paint);
 
@@ -230,6 +220,11 @@ public class GameView extends SurfaceView implements Runnable {
                     paint
             );
 
+            int startX = 1700;
+            for (int i=0; i < lifes; i++){
+                canvas.drawBitmap(burgerLife, startX, 15, paint);
+                startX += 100;
+            }
 
             //draw game Over when the game is over
             if(isGameOver){
@@ -242,6 +237,7 @@ public class GameView extends SurfaceView implements Runnable {
             }
 
             surfaceHolder.unlockCanvasAndPost(canvas);
+
         }
     }
 
