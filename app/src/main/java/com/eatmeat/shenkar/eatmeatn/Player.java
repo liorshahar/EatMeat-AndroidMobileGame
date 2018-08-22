@@ -75,7 +75,7 @@ public class Player {
         // jumping
         else if (lockEvent) {
             // if player reach top of screen
-            if (y < maxY - 500){
+            if (y <= maxY - (maxY/1.2)){
                 isTop = true;
             }
             if (!isTop){
@@ -148,7 +148,7 @@ public class Player {
     }
 
     public void incSpeed(){
-        speed += 10;
+        speed += 7;
     }
 
     public Rect getDetectCrash() {
