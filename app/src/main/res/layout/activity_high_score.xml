@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     tools:context=".HighScore"
-    android:background="@drawable/cover">
+    android:background="@drawable/bg">
 
     <TextView
         android:id="@+id/textView"
