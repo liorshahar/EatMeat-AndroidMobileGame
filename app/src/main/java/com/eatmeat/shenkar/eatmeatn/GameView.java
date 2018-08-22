@@ -189,8 +189,8 @@ public class GameView extends SurfaceView implements Runnable {
             );
 
             paint.setColor(Color.BLACK);
-            paint.setTextSize(40);
-            canvas.drawText("Score: "+score,100,50,paint);
+            paint.setTextSize(55);
+            canvas.drawText("Score: "+score,100,80,paint);
 
             canvas.drawBitmap(
                     player.getBitmap(),
@@ -220,10 +220,10 @@ public class GameView extends SurfaceView implements Runnable {
                     paint
             );
 
-            int startX = 1700;
+            int startX = 380;
             for (int i=0; i < lifes; i++){
                 canvas.drawBitmap(burgerLife, startX, 15, paint);
-                startX += 100;
+                startX += 120;
             }
 
             //draw game Over when the game is over
